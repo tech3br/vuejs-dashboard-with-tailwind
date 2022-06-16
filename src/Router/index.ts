@@ -1,26 +1,22 @@
 import { createRouter, createWebHistory } from "vue-router";
 import RoutesPaths from "./constants";
 
-const lazyLoading = (view: string) => {
-  return import(`../Views/${view}.vue`);
-};
-
 const routes = [
   {
     path: RoutesPaths.privateRoutes.HelloWorld.path,
     name: RoutesPaths.privateRoutes.HelloWorld.name,
-    component: lazyLoading("HelloWorld"),
+    component: () => import(`../Views/HelloWorld.vue`),
     meta: { auth: false },
   },
   {
     path: RoutesPaths.privateRoutes.Home.path,
     name: RoutesPaths.privateRoutes.Home.name,
-    component: lazyLoading("Home"),
+    component: () => import(`../Views/Home.vue`),
     meta: { auth: false },
   },
   {
     path: "/:pathMatch(.*)*",
-    component: lazyLoading("NotFound"),
+    component: () => import(`../Views/NotFound.vue`),
   },
 ];
 
